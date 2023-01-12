@@ -1,5 +1,6 @@
 # coding: utf-8
 import numpy as np
+from numpy.typing import NDArray
 
 
 def identity_function(x):
@@ -28,7 +29,7 @@ def relu_grad(x):
     return grad
     
 
-def softmax(x):
+def softmax(x: NDArray[np.floating]) -> np.ndarray[np.floating]:
     x = x - np.max(x, axis=-1, keepdims=True)   # オーバーフロー対策
     return np.exp(x) / np.sum(np.exp(x), axis=-1, keepdims=True)
 
@@ -37,7 +38,7 @@ def sum_squared_error(y, t):
     return 0.5 * np.sum((y-t)**2)
 
 
-def cross_entropy_error(y, t):
+def cross_entropy_error(y: NDArray[np.floating], t: NDArray[np.integer] | int) -> float:
     if y.ndim == 1:
         t = t.reshape(1, t.size)
         y = y.reshape(1, y.size)
