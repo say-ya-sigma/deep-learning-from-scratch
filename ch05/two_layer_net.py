@@ -9,7 +9,7 @@ from collections import OrderedDict
 
 class TwoLayerNet:
 
-    def __init__(self, input_size, hidden_size, output_size, weight_init_std = 0.01):
+    def __init__(self, input_size: int, hidden_size: int, output_size: int, weight_init_std = 0.01):
         # 重みの初期化
         self.params = {}
         self.params['W1'] = weight_init_std * np.random.randn(input_size, hidden_size)
@@ -25,27 +25,27 @@ class TwoLayerNet:
 
         self.lastLayer = SoftmaxWithLoss()
         
-    def predict(self, x):
+    def predict(self, x: np.ndarray):
         for layer in self.layers.values():
             x = layer.forward(x)
         
         return x
         
     # x:入力データ, t:教師データ
-    def loss(self, x, t):
+    def loss(self, x: np.ndarray, t: np.ndarray):
         y = self.predict(x)
         return self.lastLayer.forward(y, t)
     
-    def accuracy(self, x, t):
+    def accuracy(self, x: np.ndarray, t: np.ndarray):
         y = self.predict(x)
         y = np.argmax(y, axis=1)
         if t.ndim != 1 : t = np.argmax(t, axis=1)
         
-        accuracy = np.sum(y == t) / float(x.shape[0])
+        accuracy: float = np.sum(y == t) / float(x.shape[0])
         return accuracy
         
     # x:入力データ, t:教師データ
-    def numerical_gradient(self, x, t):
+    def numerical_gradient(self, x: np.ndarray, t: np.ndarray):
         loss_W = lambda W: self.loss(x, t)
         
         grads = {}
@@ -56,7 +56,7 @@ class TwoLayerNet:
         
         return grads
         
-    def gradient(self, x, t):
+    def gradient(self, x: np.ndarray, t: np.ndarray):
         # forward
         self.loss(x, t)
 
