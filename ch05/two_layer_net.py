@@ -2,6 +2,7 @@
 import sys, os
 sys.path.append(os.pardir)  # 親ディレクトリのファイルをインポートするための設定
 import numpy as np
+from numpy.typing import NDArray
 from common.layers import *
 from common.gradient import numerical_gradient
 from collections import OrderedDict
@@ -25,18 +26,18 @@ class TwoLayerNet:
 
         self.lastLayer = SoftmaxWithLoss()
         
-    def predict(self, x: np.ndarray):
+    def predict(self, x: NDArray[np.floating]):
         for layer in self.layers.values():
             x = layer.forward(x)
         
         return x
         
     # x:入力データ, t:教師データ
-    def loss(self, x: np.ndarray, t: np.ndarray):
+    def loss(self, x: NDArray[np.floating], t: NDArray[np.floating]):
         y = self.predict(x)
         return self.lastLayer.forward(y, t)
     
-    def accuracy(self, x: np.ndarray, t: np.ndarray):
+    def accuracy(self, x: NDArray[np.floating], t: NDArray[np.floating]):
         y = self.predict(x)
         y = np.argmax(y, axis=1)
         if t.ndim != 1 : t = np.argmax(t, axis=1)
@@ -45,7 +46,7 @@ class TwoLayerNet:
         return accuracy
         
     # x:入力データ, t:教師データ
-    def numerical_gradient(self, x: np.ndarray, t: np.ndarray):
+    def numerical_gradient(self, x: NDArray[np.floating], t: NDArray[np.floating]):
         loss_W = lambda W: self.loss(x, t)
         
         grads = {}
@@ -56,7 +57,7 @@ class TwoLayerNet:
         
         return grads
         
-    def gradient(self, x: np.ndarray, t: np.ndarray):
+    def gradient(self, x: NDArray[np.floating], t: NDArray[np.floating]):
         # forward
         self.loss(x, t)
 
