@@ -5,7 +5,9 @@ import numpy as np
 from numpy.typing import NDArray
 from common.layers import *
 from common.gradient import numerical_gradient
+from common.abstract_layer import AbstractLayer
 from collections import OrderedDict
+from typing import OrderedDict
 
 
 class TwoLayerNet:
@@ -19,7 +21,7 @@ class TwoLayerNet:
         self.params['b2'] = np.zeros(output_size)
 
         # レイヤの生成
-        self.layers = OrderedDict()
+        self.layers: OrderedDict[str, AbstractLayer] = OrderedDict()
         self.layers['Affine1'] = Affine(self.params['W1'], self.params['b1'])
         self.layers['Relu1'] = Relu()
         self.layers['Affine2'] = Affine(self.params['W2'], self.params['b2'])

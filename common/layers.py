@@ -3,9 +3,9 @@ import numpy as np
 from numpy.typing import NDArray
 from common.functions import *
 from common.util import im2col, col2im
+from common.abstract_layer import AbstractLayer
 
-
-class Relu:
+class Relu(AbstractLayer):
     def __init__(self):
         self.mask = None
 
@@ -38,8 +38,8 @@ class Sigmoid:
         return dx
 
 
-class Affine:
-    def __init__(self, W, b):
+class Affine(AbstractLayer):
+    def __init__(self, W: NDArray[np.floating], b: NDArray[np.floating]):
         self.W =W
         self.b = b
         
@@ -55,12 +55,12 @@ class Affine:
         x = x.reshape(x.shape[0], -1)
         self.x = x
 
-        out = np.dot(self.x, self.W) + self.b
+        out: NDArray[np.floating] = np.dot(self.x, self.W) + self.b
 
         return out
 
-    def backward(self, dout):
-        dx = np.dot(dout, self.W.T)
+    def backward(self, dout) -> NDArray[np.floating]:
+        dx: NDArray[np.floating] = np.dot(dout, self.W.T)
         self.dW = np.dot(self.x.T, dout)
         self.db = np.sum(dout, axis=0)
         
