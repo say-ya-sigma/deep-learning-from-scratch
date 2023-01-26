@@ -1,5 +1,8 @@
 # coding: utf-8
 import numpy as np
+from collections.abc import Callable
+from numpy.typing import NDArray
+from typing import Any
 
 def _numerical_gradient_1d(f, x):
     h = 1e-4 # 0.0001
@@ -31,7 +34,7 @@ def numerical_gradient_2d(f, X):
         return grad
 
 
-def numerical_gradient(f, x):
+def numerical_gradient(f: Callable[[Any], float], x: NDArray):
     h = 1e-4 # 0.0001
     grad = np.zeros_like(x)
     
