@@ -14,7 +14,7 @@ class TwoLayerNet:
 
     def __init__(self, input_size: int, hidden_size: int, output_size: int, weight_init_std = 0.01):
         # 重みの初期化
-        self.params = {}
+        self.params: dict[str, NDArray[np.floating]] = {}
         self.params['W1'] = weight_init_std * np.random.randn(input_size, hidden_size)
         self.params['b1'] = np.zeros(hidden_size)
         self.params['W2'] = weight_init_std * np.random.randn(hidden_size, output_size) 
