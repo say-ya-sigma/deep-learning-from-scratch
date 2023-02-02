@@ -26,8 +26,8 @@ optimizers['AdaGrad'] = AdaGrad()
 optimizers['Adam'] = Adam()
 #optimizers['RMSprop'] = RMSprop()
 
-networks = {}
-train_loss = {}
+networks: dict[str, MultiLayerNet] = {}
+train_loss: dict[str, list] = {}
 for key in optimizers.keys():
     networks[key] = MultiLayerNet(
         input_size=784, hidden_size_list=[100, 100, 100, 100],
