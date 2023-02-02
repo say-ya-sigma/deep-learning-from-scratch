@@ -7,6 +7,7 @@ from dataset.mnist import load_mnist
 from common.util import smooth_curve
 from common.multi_layer_net import MultiLayerNet
 from common.optimizer import *
+from common.abstract_optimizer import AbstractOptimizer
 
 
 # 0:MNISTデータの読み込み==========
@@ -18,7 +19,7 @@ max_iterations = 2000
 
 
 # 1:実験の設定==========
-optimizers = {}
+optimizers: dict[str, AbstractOptimizer] = {}
 optimizers['SGD'] = SGD()
 optimizers['Momentum'] = Momentum()
 optimizers['AdaGrad'] = AdaGrad()
